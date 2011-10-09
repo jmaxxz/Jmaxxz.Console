@@ -5,11 +5,11 @@ using System.Runtime.CompilerServices;
 // Change them to the values specific to your project.
 
 [assembly: AssemblyTitle("ConsoleOptions")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Maps command line switches to functionality")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Jmaxxz")]
 [assembly: AssemblyProduct("")]
-[assembly: AssemblyCopyright("")]
+[assembly: AssemblyCopyright("Jmaxxz")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

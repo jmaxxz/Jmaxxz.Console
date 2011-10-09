@@ -9,17 +9,15 @@ namespace ConsoleOptions
 		private Func<string, string, bool> command;
 		private delegate bool TryParse<T>(string s,out T val);
 		private string[] flags;
+		public bool UsesValue{get; private set;}
 		
-		public Option (IEnumerable<string> flags, Action a) : this(flags, GetHandler((string s)=>a()))
+		public Option (IEnumerable<string> flags, Action a) : this(flags, GetHandler((string s)=>a()), false)//This is somewhat of a special case because no input is used.
 		{}
 		
 		public Option(IEnumerable<string> flags, Action<int> a): this(flags, GetHandler(int.TryParse, a))
 		{}
 		
 		public Option(IEnumerable<string> flags, Action<double> a): this(flags, GetHandler(double.TryParse, a))
-		{}
-		
-		public Option(IEnumerable<string> flags, Action<Guid> a): this(flags, GetHandler(Guid.TryParse, a))
 		{}
 		
 		public Option(IEnumerable<string> flags, Action<string> a): this(flags, GetHandler(a))
@@ -44,7 +42,10 @@ namespace ConsoleOptions
 		{}
 		
 		
-		
+		public bool IsMatch(string flag)
+		{
+			return flags.Contains(flag);	
+		}
 		
 		public bool Invoke(string flag, string val)
 		{
@@ -53,7 +54,18 @@ namespace ConsoleOptions
 		
 		
 		
-		
+		/// <summary>
+		/// Gets an option handler for a option that takes a non string type as an input
+		/// </summary>
+		/// <param name="parser">
+		/// A <see cref="TryParse<T>"/>
+		/// </param>
+		/// <param name="a">
+		/// A <see cref="Action<T>"/>
+		/// </param>
+		/// <returns>
+		/// A <see cref="Func<System.String, System.String, System.Boolean>"/>
+		/// </returns>
 		private static Func<string,string, bool> GetHandler<T>(TryParse<T>parser, Action<T> a)
 		{
 			Func<string, bool> parsedAction= (string s) => { // convert to input type from string and then invoke
@@ -68,9 +80,18 @@ namespace ConsoleOptions
 			return GetHandler(parsedAction);
 		}
 		
+		/// <summary>
+		/// Gets an option handler for a option that takes a string as an input.
+		/// </summary>
+		/// <param name="a">
+		/// A <see cref="Action<System.String>"/>
+		/// </param>
+		/// <returns>
+		/// A <see cref="Func<System.String, System.String, System.Boolean>"/>
+		/// </returns>
 		private static Func<string,string, bool> GetHandler(Action<string> a)
 		{
-			Func<string, bool> parsedAction= (string s) => { // convert to input type from string and then invoke
+			Func<string, bool> parsedAction= (string s) => {
 											a(s);
 											return true;
 									};
@@ -90,11 +111,15 @@ namespace ConsoleOptions
 												}
 											};
 		}
+
+		private Option (IEnumerable<string> flags, Func<string, string, bool> command) : this(flags, command, true)
+		{}
 		
-		private Option (IEnumerable<string> flags, Func<string, string, bool> command)
+		private Option (IEnumerable<string> flags, Func<string, string, bool> command, bool usesValue)
 		{
 			this.command = command;
 			this.flags = flags.ToArray();
+			this.UsesValue = usesValue;
 		}
 	}
 }
