@@ -21,6 +21,7 @@ namespace DemoApp
 			};
 			opts.Parse(new []{"--h","--add3","6"});
 			opts.Parse(new []{"-ha","7"});
+			opts.Parse(new []{"-a","this is fail"});
 			Console.ReadLine();
 		}
 	}
