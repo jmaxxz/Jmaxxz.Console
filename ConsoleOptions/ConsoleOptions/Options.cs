@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 namespace ConsoleOptions
@@ -26,6 +27,7 @@ namespace ConsoleOptions
 
 		public bool Parse (string[] args)
 		{
+			var copyOfOptions = _options.ToList();
 			//Return false if something goes wrong (for now nothing can go wrong)
 			//This loop is naive, the array should be flattened and then a regex should be used to extract the parameters
 			for (int i = 0; i < args.Length; i++)
@@ -33,17 +35,19 @@ namespace ConsoleOptions
 				string nextArg = i + 1 < args.Length ? args[i + 1] : null;
 				string arg = args[i];
 				bool usedNextArg = false;
-				//Check for flag indicator (-,--,/,\)
+				//Check for flag indicator (-,--,/)
 				//This is the simplest of all cases the entire arg is taken as a literal 
 				if (arg.StartsWith ("--"))
 				{
-					HandleLiteralFlag (arg.Substring (2), nextArg, out usedNextArg);
+					HandleLiteralFlag (arg.Substring (2), nextArg,copyOfOptions, out usedNextArg);
 				//We need to decend into this string to handle all the possible switches. (only the last switch can take a value)
-				} else if (arg.StartsWith ("-") || arg.StartsWith ("/"))
+				} 
+				else if (arg.StartsWith ("-") || arg.StartsWith ("/"))
 				{
-					HandleQuickFlags (arg.Substring (1), nextArg, out usedNextArg);
+					HandleQuickFlags (arg.Substring (1), nextArg,copyOfOptions, out usedNextArg);
 				// This is a data arg
-				} else
+				} 
+				else
 				{
 					
 				}
@@ -57,27 +61,28 @@ namespace ConsoleOptions
 			return true;
 		}
 
-		private bool HandleQuickFlags (string flags, string nextVal, out bool usedNextArg)
+		private bool HandleQuickFlags (string flags, string nextVal,IList<Option> opts, out bool usedNextArg)
 		{
 			foreach (char flag in flags.Substring (0, flags.Length - 1))
 			{
 				bool junk;
-				if (!HandleLiteralFlag (flag.ToString (), null, out junk))
+				if (!HandleLiteralFlag (flag.ToString (), null,opts, out junk))
 				{
 					usedNextArg = false;
 					return false;
 				}
 			}
-			return HandleLiteralFlag (flags[flags.Length - 1].ToString (), nextVal, out usedNextArg);
+			return HandleLiteralFlag (flags[flags.Length - 1].ToString (), nextVal,opts, out usedNextArg);
 		}
 
-		private bool HandleLiteralFlag (string flag, string nextVal, out bool usedNextArg)
+		private bool HandleLiteralFlag (string flag, string nextVal,IList<Option> opts, out bool usedNextArg)
 		{
-			foreach (var opt in _options)
+			foreach (var opt in opts)
 			{
 				if (opt.IsMatch (flag))
 				{
 					usedNextArg = opt.UsesValue;
+					opts.Remove(opt);
 					return usedNextArg ? opt.Invoke (flag, nextVal) : opt.Invoke (flag, "");
 				}
 			}

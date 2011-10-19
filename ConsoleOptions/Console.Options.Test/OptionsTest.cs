@@ -25,6 +25,23 @@ namespace ConsoleOptions.Test
 		}
 		
 		[Test]
+		public void OptionDoesNotRunTwice()
+		{
+			int opt1Ran =0;
+			var opt2Ran =false;
+			Options ops = new Options
+			{
+				new Option(new []{"r","run"}, ()=>opt1Ran++),
+				new Option(new []{"d","dont"}, ()=>opt2Ran=true),
+			};
+			
+			ops.Parse(new []{"-r","-r","--run"});
+			
+			Assert.AreEqual(1,opt1Ran, "Option1 did not run once and only once");
+			Assert.IsFalse(opt2Ran, "Option2 ran");
+		}
+		
+		[Test]
 		public void Simple2OptionRan()
 		{
 			var opt1Ran =false;
