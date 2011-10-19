@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{545B1081-41BB-4B68-BFF0-D08C093E2524}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Console.Options.Test</RootNamespace>
+    <RootNamespace>ConsoleOptions.Test</RootNamespace>
     <AssemblyName>Console.Options.Test</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
@@ -39,6 +39,7 @@
   <ItemGroup>
     <Compile Include="OptionTest.cs" />
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="OptionsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ConsoleOptions\ConsoleOptions.csproj">

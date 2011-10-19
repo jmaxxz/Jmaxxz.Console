@@ -1,7 +1,7 @@
 using System;
 using ConsoleOptions;
 using NUnit.Framework;
-namespace Console.Options.Test
+namespace ConsoleOptions.Test
 {
 	[TestFixture]
 	public class OptionTest
