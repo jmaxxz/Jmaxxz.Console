@@ -24,6 +24,23 @@ namespace ConsoleOptions.Test
 		}
 		
 		[Test]
+		public void TwoDataParameters()
+		{
+			var opt =0;
+			var opt2 = 0.0;
+			Options ops = new Options
+			{
+				new Option(new string[]{}, (int x)=>opt = x),
+				new Option(new string[]{}, (double x)=>opt2 = x),
+			};
+			
+			ops.Parse(new []{"1", "2.0"});
+			
+			Assert.AreEqual(1,opt, "Opt was not initialized correctly");
+			Assert.AreEqual(2.0, opt2, "Opt2 was not handled correctly");
+		}
+		
+		[Test]
 		public void SimpleDataParameter()
 		{
 			var opt =0;
@@ -34,7 +51,7 @@ namespace ConsoleOptions.Test
 			
 			ops.Parse(new []{"1"});
 			
-			Assert.AreEqual(1,opt, "Option2 ran");
+			Assert.AreEqual(1,opt, "Data was not initialized correctly");
 		}
 		
 		[Test]
