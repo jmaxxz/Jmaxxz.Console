@@ -5,11 +5,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleOptions", "ConsoleOp
 EndProject
 Project("{9344bdbb-3e7f-41fc-a0dd-8665d75ee146}") = "Packages", "Packages.mdproj", "{F5D8D31F-F954-43DC-9DF3-07E8608225A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoApp", "DemoApp\DemoApp.csproj", "{49576CFD-47BC-4FD9-8D1F-A4C5FE264C09}"
+Project("{F7A893EA-324D-4BAE-BE2B-8DE152589605}") = "DemoApp", "DemoApp\DemoApp.csproj", "{49576CFD-47BC-4FD9-8D1F-A4C5FE264C09}"
 EndProject
-Project("{9344bdbb-3e7f-41fc-a0dd-8665d75ee146}") = "Packages", "Packages.mdproj", "{F5D8D31F-F954-43DC-9DF3-07E8608225A5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console.Options.Test", "Console.Options.Test\Console.Options.Test.csproj", "{545B1081-41BB-4B68-BFF0-D08C093E2524}"
+Project("{58DC6735-B567-4B44-9487-B34D690AB13E}") = "Console.Options.Test", "Console.Options.Test\Console.Options.Test.csproj", "{545B1081-41BB-4B68-BFF0-D08C093E2524}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

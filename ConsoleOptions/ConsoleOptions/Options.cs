@@ -49,7 +49,7 @@ namespace ConsoleOptions
 				} 
 				else
 				{
-					
+					HandleParameter(arg, copyOfOptions);
 				}
 				
 				if (usedNextArg)
@@ -87,6 +87,19 @@ namespace ConsoleOptions
 				}
 			}
 			usedNextArg = false;
+			return false;
+		}
+		
+		private bool HandleParameter(string data, IList<Option> opts)
+		{
+			foreach (var opt in opts)
+			{
+				if (opt.IsFlagless)
+				{
+					opts.Remove(opt);
+					return opt.Invoke ("NoFlag", data);
+				}
+			}
 			return false;
 		}
 

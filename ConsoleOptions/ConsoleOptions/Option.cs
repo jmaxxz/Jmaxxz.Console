@@ -11,6 +11,7 @@ namespace ConsoleOptions
 		private delegate void ConvertFailedHandler (string val);
 		private string[] flags;
 		public bool UsesValue { get; private set; }
+		public bool IsFlagless { get; private set; }
 
 		//This is somewhat of a special case because no input is used.
 		public Option (IEnumerable<string> flags, Action a) : this(flags, GetHandler ((string s) => a ()), false)
@@ -138,6 +139,7 @@ namespace ConsoleOptions
 		{
 			this.command = command;
 			this.flags = flags.ToArray ();
+			this.IsFlagless = !flags.Any();
 			this.UsesValue = usesValue;
 		}
 	}

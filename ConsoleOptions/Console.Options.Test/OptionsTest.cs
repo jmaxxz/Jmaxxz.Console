@@ -1,7 +1,6 @@
 using System;
-using NUnit.Framework;
 using ConsoleOptions;
-
+using NUnit.Framework;
 namespace ConsoleOptions.Test
 {
 	[TestFixture]
@@ -22,6 +21,20 @@ namespace ConsoleOptions.Test
 			
 			Assert.IsTrue(opt1Ran, "Option1 did not run");
 			Assert.IsFalse(opt2Ran, "Option2 ran");
+		}
+		
+		[Test]
+		public void SimpleDataParameter()
+		{
+			var opt =0;
+			Options ops = new Options
+			{
+				new Option(new string[]{}, (int x)=>opt = x),
+			};
+			
+			ops.Parse(new []{"1"});
+			
+			Assert.AreEqual(1,opt, "Option2 ran");
 		}
 		
 		[Test]
