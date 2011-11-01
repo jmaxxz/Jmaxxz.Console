@@ -5,9 +5,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleOptions", "ConsoleOp
 EndProject
 Project("{9344bdbb-3e7f-41fc-a0dd-8665d75ee146}") = "Packages", "Packages.mdproj", "{F5D8D31F-F954-43DC-9DF3-07E8608225A5}"
 EndProject
-Project("{F7A893EA-324D-4BAE-BE2B-8DE152589605}") = "DemoApp", "DemoApp\DemoApp.csproj", "{49576CFD-47BC-4FD9-8D1F-A4C5FE264C09}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoApp", "DemoApp\DemoApp.csproj", "{49576CFD-47BC-4FD9-8D1F-A4C5FE264C09}"
 EndProject
-Project("{58DC6735-B567-4B44-9487-B34D690AB13E}") = "Console.Options.Test", "Console.Options.Test\Console.Options.Test.csproj", "{545B1081-41BB-4B68-BFF0-D08C093E2524}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console.Options.Test", "Console.Options.Test\Console.Options.Test.csproj", "{545B1081-41BB-4B68-BFF0-D08C093E2524}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,11 +28,29 @@ Global
 		{545B1081-41BB-4B68-BFF0-D08C093E2524}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{545B1081-41BB-4B68-BFF0-D08C093E2524}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F5D8D31F-F954-43DC-9DF3-07E8608225A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F5D8D31F-F954-43DC-9DF3-07E8608225A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F5D8D31F-F954-43DC-9DF3-07E8608225A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5D8D31F-F954-43DC-9DF3-07E8608225A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = ConsoleOptions\ConsoleOptions.csproj
+		Policies = $0
+		$0.DotNetNamingPolicy = $1
+		$1.DirectoryNamespaceAssociation = None
+		$1.ResourceNamePolicy = FileFormatDefault
+		$0.TextStylePolicy = $2
+		$2.FileWidth = 120
+		$2.RemoveTrailingWhitespace = True
+		$2.inheritsSet = VisualStudio
+		$2.inheritsScope = text/plain
+		$2.scope = text/x-csharp
+		$0.CSharpFormattingPolicy = $3
+		$3.inheritsSet = Mono
+		$3.inheritsScope = text/x-csharp
+		$3.scope = text/x-csharp
+		$0.TextStylePolicy = $4
+		$4.FileWidth = 120
+		$4.TabWidth = 4
+		$4.inheritsSet = Mono
+		$4.inheritsScope = text/plain
+		$4.scope = text/plain
 	EndGlobalSection
 EndGlobal
