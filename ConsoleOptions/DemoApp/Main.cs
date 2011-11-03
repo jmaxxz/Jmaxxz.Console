@@ -19,6 +19,8 @@ namespace DemoApp
                 opt,
                 opt2,
             };
+            var opt3 = new Option(new []{"x","so","dsdsdsajdlasdsjkdjask","ThisIsAnotherOne","YetAnotherOne","ItGoesOn", "d"},()=>Console.WriteLine("Goodbye World"),"This is a test of word wrapping if everything goes ok this shoudl wrap around on to several lines while maintaining an offset for other text. If this is not wrapped correctly something is wrong...very wrong.");
+            opt3.PrintUsage();
             opts.Parse(new []{"--h","--add3","6"});
             opts.Parse(new []{"-ha","7"});
             opts.Parse(new []{"-a","this is fail"});
