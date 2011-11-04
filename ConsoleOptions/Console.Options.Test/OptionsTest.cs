@@ -13,8 +13,8 @@ namespace ConsoleOptions.Test
             var opt2Ran =false;
             Options ops = new Options
             {
-                new Option(new []{"r","run"}, ()=>opt1Ran=true),
-                new Option(new []{"d","dont"}, ()=>opt2Ran=true),
+                new Option(new []{"r","run"}, ()=>opt1Ran=true, ""),
+                new Option(new []{"d","dont"}, ()=>opt2Ran=true, ""),
             };
             
             ops.Parse(new []{"-r"});
@@ -30,8 +30,8 @@ namespace ConsoleOptions.Test
             var opt2 = 0.0;
             Options ops = new Options
             {
-                new Option(new string[]{}, (int x)=>opt = x),
-                new Option(new string[]{}, (double x)=>opt2 = x),
+                new Option(new string[]{}, (int x)=>opt = x, ""),
+                new Option(new string[]{}, (double x)=>opt2 = x, ""),
             };
             
             ops.Parse(new []{"1", "2.0"});
@@ -46,7 +46,7 @@ namespace ConsoleOptions.Test
             var opt =0;
             Options ops = new Options
             {
-                new Option(new string[]{}, (int x)=>opt = x),
+                new Option(new string[]{}, (int x)=>opt = x, ""),
             };
             
             ops.Parse(new []{"1"});
@@ -61,8 +61,8 @@ namespace ConsoleOptions.Test
             var opt2Ran =false;
             Options ops = new Options
             {
-                new Option(new []{"r","run"}, ()=>opt1Ran++),
-                new Option(new []{"d","dont"}, ()=>opt2Ran=true),
+                new Option(new []{"r","run"}, ()=>opt1Ran++, ""),
+                new Option(new []{"d","dont"}, ()=>opt2Ran=true, ""),
             };
             
             ops.Parse(new []{"-r","-r","--run"});
@@ -78,8 +78,8 @@ namespace ConsoleOptions.Test
             var opt2Ran =false;
             Options ops = new Options
             {
-                new Option(new []{"r","run"}, ()=>opt1Ran=true),
-                new Option(new []{"d","dont"}, ()=>opt2Ran=true),
+                new Option(new []{"r","run"}, ()=>opt1Ran=true, ""),
+                new Option(new []{"d","dont"}, ()=>opt2Ran=true, ""),
             };
             
             ops.Parse(new []{"-r","--dont"});
@@ -95,8 +95,8 @@ namespace ConsoleOptions.Test
             var opt2Ran =false;
             Options ops = new Options
             {
-                new Option(new []{"r","run"}, ()=>opt1Ran=true),
-                new Option(new []{"d","dont"}, ()=>opt2Ran=true),
+                new Option(new []{"r","run"}, ()=>opt1Ran=true, ""),
+                new Option(new []{"d","dont"}, ()=>opt2Ran=true, ""),
             };
             
             ops.Parse(new []{"/r"});
@@ -112,8 +112,8 @@ namespace ConsoleOptions.Test
             var opt2Ran =false;
             Options ops = new Options
             {
-                new Option(new []{"r","run"}, ()=>opt1Ran=true),
-                new Option(new []{"d","dont"}, ()=>opt2Ran=true),
+                new Option(new []{"r","run"}, ()=>opt1Ran=true, ""),
+                new Option(new []{"d","dont"}, ()=>opt2Ran=true, ""),
             };
             
             ops.Parse(new []{"--r"});
@@ -129,8 +129,8 @@ namespace ConsoleOptions.Test
             var opt2Ran =false;
             Options ops = new Options
             {
-                new Option(new []{"r","run"}, ()=>opt1Ran=true),
-                new Option(new []{"d","dont"}, ()=>opt2Ran=true),
+                new Option(new []{"r","run"}, ()=>opt1Ran=true, ""),
+                new Option(new []{"d","dont"}, ()=>opt2Ran=true, ""),
             };
             
             ops.Parse(new []{"--run"});

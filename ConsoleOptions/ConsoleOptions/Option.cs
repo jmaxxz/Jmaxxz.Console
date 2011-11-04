@@ -16,90 +16,86 @@ namespace ConsoleOptions
         public readonly string _description;
 
         //Start of flagless params
-        public Option (Action a) : this(Enumerable.Empty<string>(), a)
+        public Option (Action a, string description) : this(Enumerable.Empty<string>(), a, description)
         {
         }
 
-        public Option (Action<int> a) : this(Enumerable.Empty<string>(), a)
+        public Option (Action<int> a, string description) : this(Enumerable.Empty<string>(), a, description)
         {
         }
 
-        public Option (Action<double> a) : this(Enumerable.Empty<string>(), a)
+        public Option (Action<double> a, string description) : this(Enumerable.Empty<string>(), a, description)
         {
         }
 
-        public Option (Action<string> a) : this(Enumerable.Empty<string>(), a)
+        public Option (Action<string> a, string description) : this(Enumerable.Empty<string>(), a, description)
         {
         }
 
-        public Option (Action<DateTime> a) : this(Enumerable.Empty<string>(), a)
+        public Option (Action<DateTime> a, string description) : this(Enumerable.Empty<string>(), a, description)
         {
         }
 
-        public Option (Action<TimeSpan> a) : this(Enumerable.Empty<string>(), a)
+        public Option (Action<TimeSpan> a, string description) : this(Enumerable.Empty<string>(), a, description)
         {
         }
 
-        public Option (Action<long> a) : this(Enumerable.Empty<string>(), a)
+        public Option (Action<long> a, string description) : this(Enumerable.Empty<string>(), a, description)
         {
         }
 
-        public Option (Action<byte> a) : this(Enumerable.Empty<string>(), a)
+        public Option (Action<byte> a, string description) : this(Enumerable.Empty<string>(), a, description)
         {
         }
 
-        public Option (Action<short> a) : this(Enumerable.Empty<string>(), a)
+        public Option (Action<short> a, string description) : this(Enumerable.Empty<string>(), a, description)
         {
         }
 
-        public Option (Action<bool> a) : this(Enumerable.Empty<string>(), a)
+        public Option (Action<bool> a, string description) : this(Enumerable.Empty<string>(), a, description)
         {
         }
 
         //END of flagless params
 
         //This is somewhat of a special case because no input is used.
-        public Option (IEnumerable<string> flags, Action a) : this(flags, GetHandler ((string s) => a ()), false,"")
+        public Option (IEnumerable<string> flags, Action a, string description) : this(flags, GetHandler ((string s) => a ()), false,description)
         {
         }
 
-        public Option (IEnumerable<string> flags, Action<int> a) : this(flags, GetHandler (int.TryParse, a, v => Console.Error.WriteLine ("'{0}' could not be converted to an interger.", v)),"")
+        public Option (IEnumerable<string> flags, Action<int> a, string description) : this(flags, GetHandler (int.TryParse, a, v => Console.Error.WriteLine ("'{0}' could not be converted to an interger.", v)),description)
         {
         }
 
-        public Option (IEnumerable<string> flags, Action<double> a) : this(flags, GetHandler (double.TryParse, a, v => Console.Error.WriteLine ("'{0}' could not be converted to a double.", v)),"")
+        public Option (IEnumerable<string> flags, Action<double> a, string description) : this(flags, GetHandler (double.TryParse, a, v => Console.Error.WriteLine ("'{0}' could not be converted to a double.", v)),description)
         {
         }
 
-        public Option (IEnumerable<string> flags, Action<string> a) : this(flags, GetHandler (a),"")
+        public Option (IEnumerable<string> flags, Action<string> a, string description) : this(flags, GetHandler (a),description)
         {
         }
 
-        public Option (IEnumerable<string> flags, Action<DateTime> a) : this(flags, GetHandler (DateTime.TryParse, a, v => Console.Error.WriteLine ("'{0}' could not be converted to a date/time.", v)),"")
+        public Option (IEnumerable<string> flags, Action<DateTime> a, string description) : this(flags, GetHandler (DateTime.TryParse, a, v => Console.Error.WriteLine ("'{0}' could not be converted to a date/time.", v)),description)
         {
         }
 
-        public Option (IEnumerable<string> flags, Action<TimeSpan> a) : this(flags, GetHandler (TimeSpan.TryParse, a, v => Console.Error.WriteLine ("'{0}' could not be converted to a timespan.", v)),"")
+        public Option (IEnumerable<string> flags, Action<TimeSpan> a, string description) : this(flags, GetHandler (TimeSpan.TryParse, a, v => Console.Error.WriteLine ("'{0}' could not be converted to a timespan.", v)),description)
         {
         }
 
-        public Option (IEnumerable<string> flags, Action<long> a) : this(flags, GetHandler (long.TryParse, a, v => Console.Error.WriteLine ("'{0}' could not be converted to a long.", v)),"")
+        public Option (IEnumerable<string> flags, Action<long> a, string description) : this(flags, GetHandler (long.TryParse, a, v => Console.Error.WriteLine ("'{0}' could not be converted to a long.", v)),description)
         {
         }
 
-        public Option (IEnumerable<string> flags, Action<byte> a) : this(flags, GetHandler (byte.TryParse, a, v => Console.Error.WriteLine ("'{0}' could not be converted to a long.", v)),"")
+        public Option (IEnumerable<string> flags, Action<byte> a, string description) : this(flags, GetHandler (byte.TryParse, a, v => Console.Error.WriteLine ("'{0}' could not be converted to a long.", v)),description)
         {
         }
 
-        public Option (IEnumerable<string> flags, Action<short> a) : this(flags, GetHandler (short.TryParse, a, v => Console.Error.WriteLine ("'{0}' could note be converted to a short.", v)),"")
+        public Option (IEnumerable<string> flags, Action<short> a, string description) : this(flags, GetHandler (short.TryParse, a, v => Console.Error.WriteLine ("'{0}' could note be converted to a short.", v)),description)
         {
         }
 
-        public Option (IEnumerable<string> flags, Action<bool> a) : this(flags, GetHandler (bool.TryParse, a, v => Console.Error.WriteLine ("'{0}' was invalid, expected 'True' or 'False'.", v)),"")
-        {
-        }
-        //Constructors with usage information
-        public Option (IEnumerable<string> flags, Action a, string usage) : this(flags, GetHandler ((string s) => a ()), false,usage)
+        public Option (IEnumerable<string> flags, Action<bool> a, string description) : this(flags, GetHandler (bool.TryParse, a, v => Console.Error.WriteLine ("'{0}' was invalid, expected 'True' or 'False'.", v)),description)
         {
         }
 
@@ -113,26 +109,28 @@ namespace ConsoleOptions
             return command (flag, val);
         }
 
-        public void PrintUsage()
+        public void PrintUsage(int dividerColumn)
         {
             var winWidth = Console.WindowWidth;
-            int flagSpace = winWidth/4;
-            int descStart = (3*winWidth)/10;
+            int flagSpace = dividerColumn-2;
+            int descStart = dividerColumn+3;
 
             var offset= 0;
             var flagsOffset= 0;
             while(offset < _description.Length || flagsOffset < flags.Length)
             {
                 var y = Console.CursorTop;
+                string qualifiedFlag = "";
                 if(flagsOffset < flags.Length)
                 {
                     string currentFlag = flags[flagsOffset];
-                    var qualifiedFlag = (currentFlag.Length>1 ? "--": "-")+currentFlag;
+                    qualifiedFlag = (currentFlag.Length>1 ? "--": "-")+currentFlag;
                     Console.Write(qualifiedFlag);
                     flagsOffset++;
-                }
 
-                Console.SetCursorPosition(descStart, y);
+                }
+                Console.Write(new string(' ', dividerColumn-qualifiedFlag.Length));
+                Console.Write("|  ");
                 var nextRow = new string(_description.Skip(offset).Take(winWidth- descStart).ToArray());
                 Console.WriteLine(nextRow);
                 offset += nextRow.Length;

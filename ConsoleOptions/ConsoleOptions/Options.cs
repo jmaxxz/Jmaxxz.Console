@@ -61,6 +61,23 @@ namespace ConsoleOptions
             return true;
         }
 
+        public void PrintUsage()
+        {
+            Console.WriteLine(new string('=',Console.WindowWidth-Console.CursorLeft));
+            Console.Write("Flags");
+            Console.Write(new string(' ',30));
+            Console.Write("|  ");
+            Console.WriteLine("Descriptions");
+            Console.WriteLine(new string('_',Console.WindowWidth));
+
+            foreach(var opt in _options)
+            {
+                opt.PrintUsage(35);
+                Console.WriteLine(new string('-',Console.WindowWidth));
+            }
+
+        }
+
         private bool HandleQuickFlags (string flags, string nextVal,IList<Option> opts, out bool usedNextArg)
         {
             foreach (char flag in flags.Substring (0, flags.Length - 1))
