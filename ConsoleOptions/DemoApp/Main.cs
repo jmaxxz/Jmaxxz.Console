@@ -9,14 +9,15 @@ namespace DemoApp
         public static void Main (string[] args)
         {
             var opt = new Option(new []{"h","talk"},()=>Console.WriteLine("hello world"),"Prints greeting");
-            var opt2 = new Option(new []{"a","add3"},(int i)=>Console.WriteLine(i+3),"Adds 3 to value");
+            var opt2 = new Option(new []{"a","add3"},(int i)=>Console.WriteLine(i+3),"value","Adds 3 to value");
             var opt3 = new Option(new []{"x","so","dsdsdsajdlasdsjkdjask","ThisIsAnotherOne","YetAnotherOne","ItGoesOn", "d"},()=>Console.WriteLine("Goodbye World"),"This is a test of word wrapping if everything goes ok this shoudl wrap around on to several lines while maintaining an offset for other text. If this is not wrapped correctly something is wrong...very wrong.");
 
-            Options opts = new Options
+            Options opts = new Options("This is not the real options for this command so do not try them.")
             {
                 opt,
                 opt2,
-                opt3
+                new Option((string x) => Console.WriteLine(x),"hostname","The hostname of the server"),
+                opt3,
             };
             opts.PrintUsage();
             opt.Invoke("h",null);

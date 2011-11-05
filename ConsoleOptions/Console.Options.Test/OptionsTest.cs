@@ -30,8 +30,8 @@ namespace ConsoleOptions.Test
             var opt2 = 0.0;
             Options ops = new Options
             {
-                new Option(new string[]{}, (int x)=>opt = x, ""),
-                new Option(new string[]{}, (double x)=>opt2 = x, ""),
+                new Option(new string[]{}, (int x)=>opt = x,"value", ""),
+                new Option(new string[]{}, (double x)=>opt2 = x, "value",""),
             };
             
             ops.Parse(new []{"1", "2.0"});
@@ -46,7 +46,7 @@ namespace ConsoleOptions.Test
             var opt =0;
             Options ops = new Options
             {
-                new Option(new string[]{}, (int x)=>opt = x, ""),
+                new Option(new string[]{}, (int x)=>opt = x, "value",""),
             };
             
             ops.Parse(new []{"1"});

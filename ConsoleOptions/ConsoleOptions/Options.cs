@@ -7,10 +7,19 @@ namespace ConsoleOptions
     public class Options : IEnumerable<Option>
     {
         private IList<Option> _options;
+        private string _description;
+        private string _name;
 
-        public Options ()
+        public Options (): this("")
         {
+        }
+
+        public Options (string description)
+        {
+            _description = description;
+            _name = System.IO.Path.GetFileName(Environment.GetCommandLineArgs()[0]);
             _options = new List<Option> ();
+            _options.Add(new Option(new []{"?","help"},()=>this.PrintUsage(), "Prints usage for "+_name));
         }
 
         public void Add (Option o)
@@ -63,6 +72,12 @@ namespace ConsoleOptions
 
         public void PrintUsage()
         {
+            //Write out highlevel description
+            var sortedOpts = _options.Where(x=>!x.IsFlagless).Concat(_options.Where(x=>x.IsFlagless));
+            var syntax = string.Join(" ",sortedOpts.Select(x=>x.GetUsageSyntax()).ToArray());
+            Console.WriteLine("Usage: {0} {1}", _name,syntax);
+            if(_description != "")Console.WriteLine("Description: {0}", _description);
+
             Console.WriteLine(new string('=',Console.WindowWidth-Console.CursorLeft));
             Console.Write("Flags");
             Console.Write(new string(' ',30));
@@ -70,7 +85,7 @@ namespace ConsoleOptions
             Console.WriteLine("Descriptions");
             Console.WriteLine(new string('_',Console.WindowWidth));
 
-            foreach(var opt in _options)
+            foreach(var opt in sortedOpts)
             {
                 opt.PrintUsage(35);
                 Console.WriteLine(new string('-',Console.WindowWidth));
