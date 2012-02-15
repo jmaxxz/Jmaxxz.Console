@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoApp", "DemoApp\DemoApp.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console.Options.Test", "Console.Options.Test\Console.Options.Test.csproj", "{545B1081-41BB-4B68-BFF0-D08C093E2524}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shell", "Shell\Shell.csproj", "{CD060154-9F44-49A4-8C8C-2F37B118E737}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoShell", "DemoShell\DemoShell.csproj", "{F1AD3E90-5EDA-4CC3-9334-AF26B8288FFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,11 +31,19 @@ Global
 		{545B1081-41BB-4B68-BFF0-D08C093E2524}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{545B1081-41BB-4B68-BFF0-D08C093E2524}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{545B1081-41BB-4B68-BFF0-D08C093E2524}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD060154-9F44-49A4-8C8C-2F37B118E737}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD060154-9F44-49A4-8C8C-2F37B118E737}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD060154-9F44-49A4-8C8C-2F37B118E737}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD060154-9F44-49A4-8C8C-2F37B118E737}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1AD3E90-5EDA-4CC3-9334-AF26B8288FFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1AD3E90-5EDA-4CC3-9334-AF26B8288FFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1AD3E90-5EDA-4CC3-9334-AF26B8288FFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1AD3E90-5EDA-4CC3-9334-AF26B8288FFF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F5D8D31F-F954-43DC-9DF3-07E8608225A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F5D8D31F-F954-43DC-9DF3-07E8608225A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = ConsoleOptions\ConsoleOptions.csproj
+		StartupItem = Shell\Shell.csproj
 		Policies = $0
 		$0.DotNetNamingPolicy = $1
 		$1.DirectoryNamespaceAssociation = None
