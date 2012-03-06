@@ -41,6 +41,7 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="OptionsTest.cs" />
     <Compile Include="FlaglessOptionTest.cs" />
+    <Compile Include="OptionRedirectedOutputTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ConsoleOptions\ConsoleOptions.csproj">

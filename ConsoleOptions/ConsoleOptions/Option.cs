@@ -1,15 +1,16 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.IO;
 
 
 namespace ConsoleOptions
 {
     public class Option
     {
-        private readonly Func<string, string, bool> command;
+        private readonly Func<string, string,TextWriter, bool> command;
         private delegate bool TryParse<T> (string s, out T val);
-        private delegate void ConvertFailedHandler (string val);
+        private delegate void ConvertFailedHandler (TextWriter stdErr,string val);
         private readonly string[] flags;
         public bool UsesValue { get; private set; }
         public bool IsFlagless { get; private set; }
@@ -52,7 +53,6 @@ namespace ConsoleOptions
         public Option (Action<bool> a,string valueName, string description) : this(Enumerable.Empty<string>(), a,valueName, description)
         {
         }
-
         //END of flagless params
 
         //This is somewhat of a special case because no input is used.
@@ -60,11 +60,11 @@ namespace ConsoleOptions
         {
         }
 
-        public Option (IEnumerable<string> flags, Action<int> a, string valueName, string description) : this(flags, GetHandler (int.TryParse, a, v => Console.Error.WriteLine ("'{0}' could not be converted to an interger.", v)), valueName,description)
+        public Option (IEnumerable<string> flags, Action<int> a, string valueName, string description) : this(flags, GetHandler (int.TryParse, a, (e,v) => e.WriteLine ("'{0}' could not be converted to an interger.", v)), valueName,description)
         {
         }
 
-        public Option (IEnumerable<string> flags, Action<double> a, string valueName, string description) : this(flags, GetHandler (double.TryParse, a, v => Console.Error.WriteLine ("'{0}' could not be converted to a double.", v)),valueName,description)
+        public Option (IEnumerable<string> flags, Action<double> a, string valueName, string description) : this(flags, GetHandler (double.TryParse, a, (e,v) => e.WriteLine ("'{0}' could not be converted to a double.", v)),valueName,description)
         {
         }
 
@@ -72,27 +72,27 @@ namespace ConsoleOptions
         {
         }
 
-        public Option (IEnumerable<string> flags, Action<DateTime> a, string valueName, string description) : this(flags, GetHandler (DateTime.TryParse, a,  v => Console.Error.WriteLine ("'{0}' could not be converted to a date/time.", v)),valueName,description)
+        public Option (IEnumerable<string> flags, Action<DateTime> a, string valueName, string description) : this(flags, GetHandler (DateTime.TryParse, a,  (e,v) => e.WriteLine ("'{0}' could not be converted to a date/time.", v)),valueName,description)
         {
         }
 
-        public Option (IEnumerable<string> flags, Action<TimeSpan> a, string valueName, string description) : this(flags, GetHandler (TimeSpan.TryParse, a, v => Console.Error.WriteLine ("'{0}' could not be converted to a timespan.", v)),valueName,description)
+        public Option (IEnumerable<string> flags, Action<TimeSpan> a, string valueName, string description) : this(flags, GetHandler (TimeSpan.TryParse, a, (e,v) => e.WriteLine ("'{0}' could not be converted to a timespan.", v)),valueName,description)
         {
         }
 
-        public Option (IEnumerable<string> flags, Action<long> a, string valueName, string description) : this(flags, GetHandler (long.TryParse, a, v => Console.Error.WriteLine ("'{0}' could not be converted to a long.", v)),valueName,description)
+        public Option (IEnumerable<string> flags, Action<long> a, string valueName, string description) : this(flags, GetHandler (long.TryParse, a, (e,v) => e.WriteLine ("'{0}' could not be converted to a long.", v)),valueName,description)
         {
         }
 
-        public Option (IEnumerable<string> flags, Action<byte> a, string valueName, string description) : this(flags, GetHandler (byte.TryParse, a, v => Console.Error.WriteLine ("'{0}' could not be converted to a long.", v)),valueName,description)
+        public Option (IEnumerable<string> flags, Action<byte> a, string valueName, string description) : this(flags, GetHandler (byte.TryParse, a, (e,v) => e.WriteLine ("'{0}' could not be converted to a long.", v)),valueName,description)
         {
         }
 
-        public Option (IEnumerable<string> flags, Action<short> a, string valueName, string description) : this(flags, GetHandler (short.TryParse, a, v => Console.Error.WriteLine ("'{0}' could note be converted to a short.", v)),valueName,description)
+        public Option (IEnumerable<string> flags, Action<short> a, string valueName, string description) : this(flags, GetHandler (short.TryParse, a, (e,v) => e.WriteLine ("'{0}' could note be converted to a short.", v)),valueName,description)
         {
         }
 
-        public Option (IEnumerable<string> flags, Action<bool> a, string valueName, string description) : this(flags, GetHandler (bool.TryParse, a, v => Console.Error.WriteLine ("'{0}' was invalid, expected 'True' or 'False'.", v)),valueName,description)
+        public Option (IEnumerable<string> flags, Action<bool> a, string valueName, string description) : this(flags, GetHandler (bool.TryParse, a, (e,v) => e.WriteLine ("'{0}' was invalid, expected 'True' or 'False'.", v)),valueName,description)
         {
         }
 
@@ -103,7 +103,12 @@ namespace ConsoleOptions
 
         public bool Invoke (string flag, string val)
         {
-            return command (flag, val);
+            return Invoke(flag, val, Console.Error);
+        }
+
+        public bool Invoke (string flag, string val, TextWriter stdErr)
+        {
+            return command (flag, val, stdErr);
         }
 
         public string GetUsageSyntax()
@@ -122,6 +127,7 @@ namespace ConsoleOptions
             return string.Format("<{0}>", valueText.Trim());
         }
 
+        //This really does not belong here, I think this is really part Options
         public void PrintUsage(int dividerColumn)
         {
             var winWidth = Console.WindowWidth;
@@ -168,9 +174,9 @@ namespace ConsoleOptions
         /// <returns>
         /// A <see cref="Func<System.String, System.String, System.Boolean>"/>
         /// </returns>
-        private static Func<string, string, bool> GetHandler<T> (TryParse<T> parser, Action<T> a, ConvertFailedHandler convertFailed)
+        private static Func<string, string,TextWriter, bool> GetHandler<T> (TryParse<T> parser, Action<T> a, ConvertFailedHandler convertFailed)
         {
-            Func<string, bool> parsedAction = (string s) =>
+            Func<string,TextWriter, bool> parsedAction = (string s, TextWriter stdErr) =>
             {
                 // convert to input type from string and then invoke
                 T val;
@@ -179,7 +185,7 @@ namespace ConsoleOptions
                     a (val);
                     return true;
                 }
-                convertFailed (s);
+                convertFailed (stdErr,s);
                 return false;
             };
             return GetHandler (parsedAction);
@@ -194,9 +200,9 @@ namespace ConsoleOptions
         /// <returns>
         /// A <see cref="Func<System.String, System.String, System.Boolean>"/>
         /// </returns>
-        private static Func<string, string, bool> GetHandler (Action<string> a)
+        private static Func<string, string,TextWriter, bool> GetHandler (Action<string> a)
         {
-            Func<string, bool> parsedAction = (string s) =>
+            Func<string,TextWriter, bool> parsedAction = (string s,TextWriter stdErr) =>
             {
                 a (s);
                 return true;
@@ -204,14 +210,14 @@ namespace ConsoleOptions
             return GetHandler (parsedAction);
         }
 
-        private static Func<string, string, bool> GetHandler (Func<string, bool> valueHandler)
+        private static Func<string, string,TextWriter, bool> GetHandler (Func<string,TextWriter, bool> valueHandler)
         {
-            return (string f, string v) =>
+            return (string f, string v, TextWriter stdError) =>
             {
                 //Try for a flag
                 try
                 {
-                    return valueHandler (v);
+                    return valueHandler (v,stdError);
                 }
                 catch
                 {
@@ -220,11 +226,11 @@ namespace ConsoleOptions
             };
         }
 
-        private Option (IEnumerable<string> flags, Func<string, string, bool> command, string valueName, string description) : this(flags, command, true,valueName, description)
+        private Option (IEnumerable<string> flags, Func<string, string,TextWriter, bool> command, string valueName, string description) : this(flags, command, true,valueName, description)
         {
         }
 
-        private Option (IEnumerable<string> flags, Func<string, string, bool> command, bool usesValue,string valueName, string description)
+        private Option (IEnumerable<string> flags, Func<string, string,TextWriter, bool> command, bool usesValue,string valueName, string description)
         {
             _description = description;
             _valueName = valueName;

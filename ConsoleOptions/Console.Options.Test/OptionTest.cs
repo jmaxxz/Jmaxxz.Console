@@ -105,6 +105,17 @@ namespace ConsoleOptions.Test
 
             Assert.AreEqual(TimeSpan.FromDays(1.5), result);
         }
+
+        [Test]
+        public void SimpleExecutionWith_Enum()
+        {
+            string result;
+            //Option o = new Option(new [] {"c"}, (string x)=>result=x,new [] {"Black","Blue","Green","Red"},"Color","Color enumeration as string");
+
+            //o.Invoke("c", "Black");
+
+            //Assert.AreEqual("Black", result);
+        }
     }
 }
 

@@ -4,6 +4,7 @@ using NUnit.Framework;
 
 namespace ConsoleOptions.Test
 {
+    [TestFixture]
     public class FlaglessOptionTest
     {
             [Test]
