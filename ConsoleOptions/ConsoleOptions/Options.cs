@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 namespace ConsoleOptions
 {
     public class Options : IEnumerable<Option>
@@ -27,14 +28,12 @@ namespace ConsoleOptions
             //Eventually should scan existing options for collisions, or use a dictionary for options
             _options.Add (o);
         }
-        
-        //public bool Parse(string[] args)
-        //{
-        //            string rawString = string.Join(" ",args);
-        //}
-        //private bool InnerParse (string[] args)
-        //{
-        public bool Parse(string[] args)
+        public bool Parse( string[] args)
+        {
+            return Parse(Console.Error, args);
+        }
+
+        public bool Parse(TextWriter stderr, string[] args)
         {
             var copyOfOptions = _options.ToList();
             //Return false if something goes wrong (for now nothing can go wrong)
@@ -48,12 +47,12 @@ namespace ConsoleOptions
                 //This is the simplest of all cases the entire arg is taken as a literal 
                 if (arg.StartsWith ("--"))
                 {
-                    HandleLiteralFlag (arg.Substring (2), nextArg,copyOfOptions, out usedNextArg);
+                    HandleLiteralFlag (stderr, arg.Substring (2), nextArg,copyOfOptions, out usedNextArg);
                 //We need to decend into this string to handle all the possible switches. (only the last switch can take a value)
                 } 
                 else if (arg.StartsWith ("-") || arg.StartsWith ("/"))
                 {
-                    HandleQuickFlags (arg.Substring (1), nextArg,copyOfOptions, out usedNextArg);
+                    HandleQuickFlags (stderr, arg.Substring (1), nextArg,copyOfOptions, out usedNextArg);
                 // This is a data arg
                 } 
                 else
@@ -70,6 +69,7 @@ namespace ConsoleOptions
             return true;
         }
 
+        //TODO: How can I get this off of using the console directly?  Without treating it like a special case.
         public void PrintUsage()
         {
             //Write out highlevel description
@@ -93,21 +93,21 @@ namespace ConsoleOptions
 
         }
 
-        private bool HandleQuickFlags (string flags, string nextVal,IList<Option> opts, out bool usedNextArg)
+        private bool HandleQuickFlags (TextWriter stderr,string flags, string nextVal,IList<Option> opts, out bool usedNextArg)
         {
             foreach (char flag in flags.Substring (0, flags.Length - 1))
             {
                 bool junk;
-                if (!HandleLiteralFlag (flag.ToString (), null,opts, out junk))
+                if (!HandleLiteralFlag (stderr,flag.ToString (), null,opts, out junk))
                 {
                     usedNextArg = false;
                     return false;
                 }
             }
-            return HandleLiteralFlag (flags[flags.Length - 1].ToString (), nextVal,opts, out usedNextArg);
+            return HandleLiteralFlag (stderr, flags[flags.Length - 1].ToString (), nextVal,opts, out usedNextArg);
         }
 
-        private bool HandleLiteralFlag (string flag, string nextVal,IList<Option> opts, out bool usedNextArg)
+        private bool HandleLiteralFlag (TextWriter stderr, string flag, string nextVal,IList<Option> opts, out bool usedNextArg)
         {
             foreach (var opt in opts)
             {
