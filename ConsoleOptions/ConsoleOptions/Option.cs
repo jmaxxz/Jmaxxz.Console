@@ -131,8 +131,14 @@ namespace ConsoleOptions
         public void PrintUsage(int dividerColumn)
         {
             var winWidth = Console.WindowWidth;
-            int descStart = dividerColumn+3;
 
+            int descStart = dividerColumn+3;
+            if(winWidth <= descStart)
+            {
+                //Can not even fit a single char on the console....
+                //Give up and just pretend the console is twice the size of the descStart
+                winWidth = descStart *2;
+            }
             var offset= 0;
             var flagsOffset= 0;
 
