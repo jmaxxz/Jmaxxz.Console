@@ -87,7 +87,7 @@ namespace ConsoleOptions
 
             foreach(var opt in sortedOpts)
             {
-                opt.PrintUsage(35);
+                opt.PrintUsage(Console.Out,35, Console.WindowWidth);
                 Console.WriteLine(new string('-',Console.WindowWidth));
             }
 

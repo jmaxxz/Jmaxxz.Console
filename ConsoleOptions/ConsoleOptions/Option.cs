@@ -128,9 +128,9 @@ namespace ConsoleOptions
         }
 
         //This really does not belong here, I think this is really part Options
-        public void PrintUsage(int dividerColumn)
+        public void PrintUsage(TextWriter stdout,int dividerColumn, int consoleWidth)
         {
-            var winWidth = Console.WindowWidth;
+            var winWidth = consoleWidth;
 
             int descStart = dividerColumn+3;
             if(winWidth <= descStart)
@@ -150,19 +150,19 @@ namespace ConsoleOptions
                 {
                     string currentFlag = flags[flagsOffset];
                     qualifiedFlag = (currentFlag.Length>1 ? "--": "-")+currentFlag;
-                    Console.Write(qualifiedFlag);
+                    stdout.Write(qualifiedFlag);
                     flagsOffset++;
                     charsUsedInFirstColumn = qualifiedFlag.Length;
 
                 }else if(IsFlagless && offset ==0)
                 {
-                    Console.Write("<{0}>",_valueName);
+                    stdout.Write("<{0}>",_valueName);
                     charsUsedInFirstColumn = _valueName.Length+2;
                 }
-                Console.Write(new string(' ', dividerColumn-charsUsedInFirstColumn));
-                Console.Write("|  ");
+                stdout.Write(new string(' ', dividerColumn-charsUsedInFirstColumn));
+                stdout.Write("|  ");
                 var nextRow = new string(_description.Skip(offset).Take(winWidth- descStart).ToArray());
-                Console.WriteLine(nextRow);
+                stdout.WriteLine(nextRow);
                 offset += nextRow.Length;
             }
         }
