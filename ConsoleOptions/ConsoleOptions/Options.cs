@@ -20,7 +20,8 @@ namespace ConsoleOptions
             _description = description;
             _name = System.IO.Path.GetFileName(Environment.GetCommandLineArgs()[0]);
             _options = new List<Option> ();
-            _options.Add(new Option(new []{"?","help"},()=>this.PrintUsage(), "Prints usage for "+_name));
+            //This needs to moved the the parse method
+            _options.Add(new Option(new []{"?","help"},()=>this.PrintUsage(Console.Out, Console.WindowWidth), "Prints usage for "+_name));
         }
 
         public void Add (Option o)
@@ -69,26 +70,29 @@ namespace ConsoleOptions
             return true;
         }
 
-        //TODO: How can I get this off of using the console directly?  Without treating it like a special case.
         public void PrintUsage()
+        {
+            PrintUsage(Console.Out, Console.WindowWidth);
+        }
+        public void PrintUsage(TextWriter stdOut, int consoleWidth)
         {
             //Write out highlevel description
             var sortedOpts = _options.Where(x=>!x.IsFlagless).Concat(_options.Where(x=>x.IsFlagless));
             var syntax = string.Join(" ",sortedOpts.Select(x=>x.GetUsageSyntax()).ToArray());
-            Console.WriteLine("Usage: {0} {1}", _name,syntax);
-            if(_description != "")Console.WriteLine("Description: {0}", _description);
+            stdOut.WriteLine("Usage: {0} {1}", _name,syntax);
+            if(_description != "")stdOut.WriteLine("Description: {0}", _description);
 
-            Console.WriteLine(new string('=',Console.WindowWidth-Console.CursorLeft));
-            Console.Write("Flags");
-            Console.Write(new string(' ',30));
-            Console.Write("|  ");
-            Console.WriteLine("Descriptions");
-            Console.WriteLine(new string('_',Console.WindowWidth));
+            stdOut.WriteLine(new string('=',consoleWidth));
+            stdOut.Write("Flags");
+            stdOut.Write(new string(' ',30));
+            stdOut.Write("|  ");
+            stdOut.WriteLine("Descriptions");
+            stdOut.WriteLine(new string('_',consoleWidth));
 
             foreach(var opt in sortedOpts)
             {
-                opt.PrintUsage(Console.Out,35, Console.WindowWidth);
-                Console.WriteLine(new string('-',Console.WindowWidth));
+                opt.PrintUsage(Console.Out,35, consoleWidth);
+                stdOut.WriteLine(new string('-',consoleWidth));
             }
 
         }
