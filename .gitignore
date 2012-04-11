@@ -6,7 +6,15 @@
 *.exe
 *.o
 *.so
+bin/
+obj/
 
+#Other Garbage#
+_Resharper*
+_UpgradeReport_Files
+*.csproj.user
+*.suo
+ConsoleOptions/packages/
 # Packages #
 ############
 # it's better to unpack these files and commit the raw source

@@ -1,10 +1,8 @@
-using System;
-
 namespace Jmaxxz.ShellHelpers
 {
     public class Pause: ICommand
     {
-        private string _waitText;
+        private readonly string _waitText;
         public Pause(string waitText)
         {
             _waitText =waitText;

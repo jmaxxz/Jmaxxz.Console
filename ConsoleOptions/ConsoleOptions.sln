@@ -1,9 +1,9 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleOptions", "ConsoleOptions\ConsoleOptions.csproj", "{1412DD65-1A71-4362-9DC2-A441EE3992F7}"
 EndProject
-Project("{9344bdbb-3e7f-41fc-a0dd-8665d75ee146}") = "Packages", "Packages.mdproj", "{F5D8D31F-F954-43DC-9DF3-07E8608225A5}"
+Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "Packages", "Packages.mdproj", "{F5D8D31F-F954-43DC-9DF3-07E8608225A5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoApp", "DemoApp\DemoApp.csproj", "{49576CFD-47BC-4FD9-8D1F-A4C5FE264C09}"
 EndProject
@@ -23,6 +23,8 @@ Global
 		{1412DD65-1A71-4362-9DC2-A441EE3992F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1412DD65-1A71-4362-9DC2-A441EE3992F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1412DD65-1A71-4362-9DC2-A441EE3992F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5D8D31F-F954-43DC-9DF3-07E8608225A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5D8D31F-F954-43DC-9DF3-07E8608225A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49576CFD-47BC-4FD9-8D1F-A4C5FE264C09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{49576CFD-47BC-4FD9-8D1F-A4C5FE264C09}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49576CFD-47BC-4FD9-8D1F-A4C5FE264C09}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,8 +41,9 @@ Global
 		{F1AD3E90-5EDA-4CC3-9334-AF26B8288FFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1AD3E90-5EDA-4CC3-9334-AF26B8288FFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1AD3E90-5EDA-4CC3-9334-AF26B8288FFF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F5D8D31F-F954-43DC-9DF3-07E8608225A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F5D8D31F-F954-43DC-9DF3-07E8608225A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Shell\Shell.csproj

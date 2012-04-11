@@ -7,9 +7,9 @@ namespace ConsoleOptions
 {
     public class Options : IEnumerable<Option>
     {
-        private IList<Option> _options;
-        private string _description;
-        private string _name;
+        private readonly IList<Option> _options;
+        private readonly string _description;
+        private readonly string _name;
 
         public Options (): this("")
         {
@@ -18,10 +18,10 @@ namespace ConsoleOptions
         public Options (string description)
         {
             _description = description;
-            _name = System.IO.Path.GetFileName(Environment.GetCommandLineArgs()[0]);
+            _name = Path.GetFileName(Environment.GetCommandLineArgs()[0]);
             _options = new List<Option> ();
             //This needs to moved the the parse method
-            _options.Add(new Option(new []{"?","help"},()=>this.PrintUsage(Console.Out, Console.WindowWidth), "Prints usage for "+_name));
+            _options.Add(new Option(new []{"?","help"},()=>PrintUsage(Console.Out, Console.WindowWidth), "Prints usage for "+_name));
         }
 
         public void Add (Option o)
@@ -111,7 +111,7 @@ namespace ConsoleOptions
             return HandleLiteralFlag (stderr, flags[flags.Length - 1].ToString (), nextVal,opts, out usedNextArg);
         }
 
-        private bool HandleLiteralFlag (TextWriter stderr, string flag, string nextVal,IList<Option> opts, out bool usedNextArg)
+        private bool HandleLiteralFlag (TextWriter stderr, string flag, string nextVal,ICollection<Option> opts, out bool usedNextArg)
         {
             foreach (var opt in opts)
             {
@@ -146,7 +146,7 @@ namespace ConsoleOptions
 
         IEnumerator IEnumerable.GetEnumerator ()
         {
-            return (IEnumerator)_options.GetEnumerator ();
+            return _options.GetEnumerator ();
         }
     }
 }

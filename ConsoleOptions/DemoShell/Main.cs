@@ -1,6 +1,5 @@
 using System;
 using Jmaxxz.ShellHelpers;
-using ConsoleOptions;
 
 namespace DemoShell
 {

@@ -8,10 +8,10 @@ namespace ConsoleOptions
 {
     public class Option
     {
-        private readonly Func<string, string,TextWriter, bool> command;
+        private readonly Func<string, string,TextWriter, bool> _command;
         private delegate bool TryParse<T> (string s, out T val);
         private delegate void ConvertFailedHandler (TextWriter stdErr,string val);
-        private readonly string[] flags;
+        private readonly string[] _flags;
         public bool UsesValue { get; private set; }
         public bool IsFlagless { get; private set; }
         public readonly string _description;
@@ -98,7 +98,7 @@ namespace ConsoleOptions
 
         public bool IsMatch (string flag)
         {
-            return flags.Contains (flag);
+            return _flags.Contains (flag);
         }
 
         public bool Invoke (string flag, string val)
@@ -108,7 +108,7 @@ namespace ConsoleOptions
 
         public bool Invoke (string flag, string val, TextWriter stdErr)
         {
-            return command (flag, val, stdErr);
+            return _command (flag, val, stdErr);
         }
 
         public string GetUsageSyntax()
@@ -118,7 +118,7 @@ namespace ConsoleOptions
 
             if(!IsFlagless)
             {
-                var primaryFlag = flags.First();
+                var primaryFlag = _flags.First();
                 var qualifier = primaryFlag.Length >1? "--" : "-";
 
                 return string.Format("[{0}{1}{2}]",qualifier, primaryFlag,valueText);
@@ -142,13 +142,13 @@ namespace ConsoleOptions
             var offset= 0;
             var flagsOffset= 0;
 
-            while(offset < _description.Length || flagsOffset < flags.Length)
+            while(offset < _description.Length || flagsOffset < _flags.Length)
             {
                 string qualifiedFlag = "";
                 int charsUsedInFirstColumn =0;
-                if(flagsOffset < flags.Length)
+                if(flagsOffset < _flags.Length)
                 {
-                    string currentFlag = flags[flagsOffset];
+                    string currentFlag = _flags[flagsOffset];
                     qualifiedFlag = (currentFlag.Length>1 ? "--": "-")+currentFlag;
                     stdout.Write(qualifiedFlag);
                     flagsOffset++;
@@ -182,7 +182,7 @@ namespace ConsoleOptions
         /// </returns>
         private static Func<string, string,TextWriter, bool> GetHandler<T> (TryParse<T> parser, Action<T> a, ConvertFailedHandler convertFailed)
         {
-            Func<string,TextWriter, bool> parsedAction = (string s, TextWriter stdErr) =>
+            Func<string,TextWriter, bool> parsedAction = (s, stdErr) =>
             {
                 // convert to input type from string and then invoke
                 T val;
@@ -208,7 +208,7 @@ namespace ConsoleOptions
         /// </returns>
         private static Func<string, string,TextWriter, bool> GetHandler (Action<string> a)
         {
-            Func<string,TextWriter, bool> parsedAction = (string s,TextWriter stdErr) =>
+            Func<string,TextWriter, bool> parsedAction = (s, stdErr) =>
             {
                 a (s);
                 return true;
@@ -218,7 +218,7 @@ namespace ConsoleOptions
 
         private static Func<string, string,TextWriter, bool> GetHandler (Func<string,TextWriter, bool> valueHandler)
         {
-            return (string f, string v, TextWriter stdError) =>
+            return (f, v, stdError) =>
             {
                 //Try for a flag
                 try
@@ -240,10 +240,10 @@ namespace ConsoleOptions
         {
             _description = description;
             _valueName = valueName;
-            this.command = command;
-            this.flags = flags.ToArray ();
-            this.IsFlagless = !flags.Any();
-            this.UsesValue = usesValue;
+            _command = command;
+            _flags = flags.ToArray ();
+            IsFlagless = !flags.Any();
+            UsesValue = usesValue;
         }
     }
 }

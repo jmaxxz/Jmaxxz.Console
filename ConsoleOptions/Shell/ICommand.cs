@@ -1,5 +1,3 @@
-using System;
-
 namespace Jmaxxz.ShellHelpers
 {
     public interface ICommand

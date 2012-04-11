@@ -1,5 +1,3 @@
-using System;
-
 namespace Jmaxxz.ShellHelpers
 {
     public class Echo : ICommand

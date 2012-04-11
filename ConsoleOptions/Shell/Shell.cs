@@ -7,8 +7,8 @@ namespace Jmaxxz.ShellHelpers
 {
     public class Shell : IEnumerable<KeyValuePair<string,ICommand>>
     {
-        private IDictionary<string,ICommand> _commands;
-        private Func<string> _prompt;
+        private readonly IDictionary<string,ICommand> _commands;
+        private readonly Func<string> _prompt;
 
         //This should be moved out into a state object
         private bool _running = false;
@@ -66,7 +66,7 @@ namespace Jmaxxz.ShellHelpers
             }
         }
 
-        private static String[] SlitCliInput(string line)
+        private static string[] SlitCliInput(string line)
         {
             return line.Split(new []{' '},StringSplitOptions.RemoveEmptyEntries);
         }
@@ -78,7 +78,7 @@ namespace Jmaxxz.ShellHelpers
 
         IEnumerator IEnumerable.GetEnumerator ()
         {
-            return (IEnumerator)_commands.GetEnumerator ();
+            return _commands.GetEnumerator ();
         }
     }
 }

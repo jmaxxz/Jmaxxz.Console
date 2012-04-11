@@ -1,10 +1,8 @@
-using System;
-
 namespace Jmaxxz.ShellHelpers
 {
     public class Exit: ICommand
     {
-        private Shell _shell;
+        private readonly Shell _shell;
         public Exit(Shell s)
         {
             _shell =s;

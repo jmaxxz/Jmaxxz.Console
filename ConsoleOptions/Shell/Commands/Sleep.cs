@@ -1,4 +1,3 @@
-using System;
 using ConsoleOptions;
 using System.Threading;
 
