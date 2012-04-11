@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <version>1.0.1</version>
+    <authors>Jmaxxz</authors>
+    <owners />
+    <projectUrl>https://github.com/jmaxxz/Jmaxxz.Console</projectUrl>
+    <id>Jmaxxz.Console.Options</id>
+    <title>Jmaxxz.Console.Options</title>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Makes developing command line tools easier in windows. (.Net) by adding a nice API for parsing command line options.</description>
+    <summary>DO WHAT EVER YOU WANT TO PUBLIC LICENSE
+
+Everyone is permitted to copy and distribute verbatim changing it is allowed as long
+as the name is changed.</summary>
+    <releaseNotes>*Initial release</releaseNotes>
+  </metadata>
+  <files>
+    <file src="bin\Release\ConsoleOptions.dll" target="lib\ConsoleOptions.dll" />
+  </files>
+</package>
