@@ -46,12 +46,12 @@ namespace ConsoleOptions
                 bool usedNextArg = false;
                 //Check for flag indicator (-,--,/)
                 //This is the simplest of all cases the entire arg is taken as a literal 
-                if (arg.StartsWith ("--"))
+                if (arg.StartsWith ("--") && arg.Length >= 3)
                 {
                     HandleLiteralFlag (stderr, arg.Substring (2), nextArg,copyOfOptions, out usedNextArg);
                 //We need to decend into this string to handle all the possible switches. (only the last switch can take a value)
                 } 
-                else if (arg.StartsWith ("-") || arg.StartsWith ("/"))
+                else if (arg.StartsWith ("-") && arg.Length >= 2)
                 {
                     HandleQuickFlags (stderr, arg.Substring (1), nextArg,copyOfOptions, out usedNextArg);
                 // This is a data arg
@@ -97,7 +97,7 @@ namespace ConsoleOptions
 
         }
 
-        private bool HandleQuickFlags (TextWriter stderr,string flags, string nextVal,IList<Option> opts, out bool usedNextArg)
+        private bool HandleQuickFlags (TextWriter stderr,string flags, string nextVal,ICollection<Option> opts, out bool usedNextArg)
         {
             foreach (char flag in flags.Substring (0, flags.Length - 1))
             {
