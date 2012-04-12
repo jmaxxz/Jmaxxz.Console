@@ -50,8 +50,8 @@ namespace ConsoleOptions
                 {
                     HandleLiteralFlag (stderr, arg.Substring (2), nextArg,copyOfOptions, out usedNextArg);
                 //We need to decend into this string to handle all the possible switches. (only the last switch can take a value)
-                } 
-                else if (arg.StartsWith ("-") && arg.Length >= 2)
+                }
+                else if (arg.StartsWith("-") && arg.Length >= 2 && !arg.StartsWith("--"))
                 {
                     HandleQuickFlags (stderr, arg.Substring (1), nextArg,copyOfOptions, out usedNextArg);
                 // This is a data arg

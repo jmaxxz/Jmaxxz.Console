@@ -87,6 +87,34 @@ namespace ConsoleOptions.Test
             Assert.IsTrue(opt1Ran, "Option1 did not run");
             Assert.IsTrue(opt2Ran, "Option2 did not run");
         }
+
+        [Test]
+        public void TestMinusAsArguement()
+        {
+            var val = "";
+            Options ops = new Options
+            {
+                new Option( x=>val =x, "value","some value"),
+            };
+
+            ops.Parse(new[] { "-" });
+            
+            Assert.AreEqual("-", val);
+        }
+
+        [Test]
+        public void TestMinusMinusAsArguement()
+        {
+            var val = "";
+            Options ops = new Options
+            {
+                new Option( x=>val =x, "value","some value"),
+            };
+
+            ops.Parse(new[] { "--" });
+
+            Assert.AreEqual("--", val);
+        }
         
         
         [Test]
