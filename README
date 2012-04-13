@@ -1,7 +1,9 @@
-==Install the nuget package==
-PM> Install-Package Jmaxxz.Console.Options 
+Install the nuget package
+-------------------------
+          PM> Install-Package Jmaxxz.Console.Options 
 
-==License==
+License
+-------
 Jmaxxz.Console is distributed under the following license:
 
           DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
