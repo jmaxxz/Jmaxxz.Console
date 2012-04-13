@@ -1,4 +1,10 @@
- Jmaxxz.Console is distributed under the following license:
+Install the nuget package
+-------------------------
+          PM> Install-Package Jmaxxz.Console.Options 
+
+License
+-------
+Jmaxxz.Console is distributed under the following license:
 
           DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
                    Version 2, December 2004
