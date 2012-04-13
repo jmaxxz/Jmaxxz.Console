@@ -10,6 +10,7 @@ namespace ConsoleOptions
         private readonly IList<Option> _options;
         private readonly string _description;
         private readonly string _name;
+        private readonly Option _showUsage;
 
         public Options (): this("")
         {
@@ -20,8 +21,9 @@ namespace ConsoleOptions
             _description = description;
             _name = Path.GetFileName(Environment.GetCommandLineArgs()[0]);
             _options = new List<Option> ();
-            //This needs to moved the the parse method
-            _options.Add(new Option(new []{"?","help"},()=>PrintUsage(Console.Out, Console.WindowWidth), "Prints usage for "+_name));
+            
+            _showUsage = new Option(new[] {"?", "help"}, () => PrintUsage(Console.Out, Console.WindowWidth),"Prints usage for " + _name);
+            _options.Add(_showUsage);
         }
 
         public void Add (Option o)
@@ -44,23 +46,28 @@ namespace ConsoleOptions
                 string nextArg = i + 1 < args.Length ? args[i + 1] : null;
                 string arg = args[i];
                 bool usedNextArg = false;
+                bool parsedSuccessful;
                 //Check for flag indicator (-,--,/)
                 //This is the simplest of all cases the entire arg is taken as a literal 
                 if (arg.StartsWith ("--") && arg.Length >= 3)
                 {
-                    HandleLiteralFlag (stderr, arg.Substring (2), nextArg,copyOfOptions, out usedNextArg);
+                    parsedSuccessful = HandleLiteralFlag(stderr, arg.Substring(2), nextArg, copyOfOptions, out usedNextArg);
                 //We need to decend into this string to handle all the possible switches. (only the last switch can take a value)
                 }
                 else if (arg.StartsWith("-") && arg.Length >= 2 && !arg.StartsWith("--"))
                 {
-                    HandleQuickFlags (stderr, arg.Substring (1), nextArg,copyOfOptions, out usedNextArg);
+                    parsedSuccessful = HandleQuickFlags(stderr, arg.Substring(1), nextArg, copyOfOptions, out usedNextArg);
+
                 // This is a data arg
                 } 
                 else
                 {
-                    HandleParameter(arg, copyOfOptions);
+                    parsedSuccessful = HandleParameter(arg, copyOfOptions);
                 }
-                
+                if (!parsedSuccessful)
+                {
+                    return false;
+                }
                 if (usedNextArg)
                 {
                     i++;
@@ -119,7 +126,7 @@ namespace ConsoleOptions
                 {
                     usedNextArg = opt.UsesValue;
                     opts.Remove(opt);
-                    return usedNextArg ? opt.Invoke (flag, nextVal) : opt.Invoke (flag, "");
+                    return (usedNextArg ? opt.Invoke(flag, nextVal) : opt.Invoke(flag, "")) && opt != _showUsage;
                 }
             }
             usedNextArg = false;
@@ -133,7 +140,7 @@ namespace ConsoleOptions
                 if (opt.IsFlagless)
                 {
                     opts.Remove(opt);
-                    return opt.Invoke ("NoFlag", data);
+                    return opt.Invoke("NoFlag", data) && opt != _showUsage;
                 }
             }
             return false;

@@ -116,7 +116,22 @@ namespace ConsoleOptions.Test
             Assert.AreEqual("--", val);
         }
         
-        
+        [Test]
+        public void ShowUsageFailsParse()
+        {
+            Options ops = new Options();
+            var result = ops.Parse(new[] { "-?" });
+
+            Assert.IsFalse(result);
+        }
+        [Test]
+        public void ShowHelpFailsParse()
+        {
+            Options ops = new Options();
+            var result = ops.Parse(new[] { "--help" });
+
+            Assert.IsFalse(result);
+        }
         [Test]
         public void LiteralFlag()
         {
