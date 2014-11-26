@@ -1,6 +1,14 @@
-Install the nuget package
+Jmaxxz.Console.Options ![Jmaxxz.Console.Options](https://img.shields.io/nuget/v/Jmaxxz.Console.Options.svg) ![Jmaxxz.Console.Options](https://img.shields.io/nuget/dt/Jmaxxz.Console.Options.svg)
 -------------------------
-          PM> Install-Package Jmaxxz.Console.Options 
+```shell
+PM> Install-Package Jmaxxz.Console.Options 
+```
+
+Jmaxxz.Console.Shell ![Jmaxxz.Console.Shell](https://img.shields.io/nuget/v/Jmaxxz.Console.Shell.svg) ![Jmaxxz.Console.Shell](https://img.shields.io/nuget/dt/Jmaxxz.Console.Shell.svg)
+-------------------------
+```shell
+PM> Install-Package Jmaxxz.Console.Shell 
+```
 
 License
 -------
