@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Jmaxxz.Console.Shell</id>
+    <version>1.0.1</version>
+    <title>Jmaxxz.Console.Shell</title>
+    <authors>Jmaxxz</authors>
+    <owners>Jmaxxz</owners>
+    <licenseUrl>https://github.com/jmaxxz/Jmaxxz.Console/blob/master/README.md</licenseUrl>
+    <projectUrl>https://github.com/jmaxxz/Jmaxxz.Console</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Makes developing custom shells easier.</description>
+    <releaseNotes>Initial release.</releaseNotes>
+    <copyright>Copyright 2014</copyright>
+    <tags>Shell Cli</tags>
+  </metadata>
+</package>
