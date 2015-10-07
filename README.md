@@ -12,6 +12,40 @@ Jmaxxz.Console.Shell ![Jmaxxz.Console.Shell](https://img.shields.io/nuget/v/Jmax
 PM> Install-Package Jmaxxz.Console.Shell 
 ```
 
+Examples
+-----
+Let's assume that we have an app that validates json against a json schema. Our app expects 2 files: the first file contains the json and the second file contains the json schema.
+
+Here's an example usage:
+
+    $ validate.exe JsonFile.json SchemaFile.schema
+
+You can parse this with the following code:
+
+```csharp
+static int Main(string[] args)
+{
+  string jsonFile = null;
+  string schemaFile = null;
+
+  var options = new Options
+  {
+    new Option(new string[] {}, s => jsonFile = s, "jsonFile",
+      "The file that contains the json you wish to validate"),
+    new Option(new string[] {}, s => schemaFile = s, "schemaFile",
+      "The file that contains the schema to use for validation")
+  }
+
+  if (!options.Parse(args) || jsonFile == null || schemaFile == null)
+  {
+    options.PrintUsage();
+  }
+
+  // Use jsonFile and schemaFile in your app...
+}
+```
+
+
 License
 -------
 Jmaxxz.Console is distributed under the following license:
