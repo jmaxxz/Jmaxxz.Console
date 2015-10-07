@@ -34,7 +34,7 @@ static int Main(string[] args)
       "The file that contains the json you wish to validate"),
     new Option(new string[] {}, s => schemaFile = s, "schemaFile",
       "The file that contains the schema to use for validation")
-  }
+  };
 
   if (!options.Parse(args) || jsonFile == null || schemaFile == null)
   {
@@ -45,6 +45,24 @@ static int Main(string[] args)
 }
 ```
 
+If you wish to see the usage type
+
+```shell
+> validate /?
+Usage: validate [-?] <jsonFile> <schemaFile>
+================================================================================
+Flags                              |  Descriptions
+________________________________________________________________________________
+-?                                 |  Prints usage for validate.vshost.exe
+--help                             |
+--------------------------------------------------------------------------------
+<jsonFile>                         |  The file that contains the json you wish t
+                                   |  o validate
+--------------------------------------------------------------------------------
+<schemaFile>                       |  The file that contains the schema to use f
+                                   |  or validation
+--------------------------------------------------------------------------------
+```
 
 License
 -------
