@@ -23,7 +23,7 @@ Here's an example usage:
 You can parse this with the following code:
 
 ```csharp
-static int Main(string[] args)
+static void Main(string[] args)
 {
   string jsonFile = null;
   string schemaFile = null;
@@ -39,6 +39,7 @@ static int Main(string[] args)
   if (!options.Parse(args) || jsonFile == null || schemaFile == null)
   {
     options.PrintUsage();
+    return;
   }
 
   // Use jsonFile and schemaFile in your app...
