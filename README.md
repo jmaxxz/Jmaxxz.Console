@@ -46,7 +46,7 @@ static void Main(string[] args)
 }
 ```
 
-If you wish to see the usage type
+If you wish to see the usage run the application and pass it `/?` or `-?`:
 
 ```shell
 > validate /?
